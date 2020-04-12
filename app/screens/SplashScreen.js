@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class SplashScreen extends Component {
   constructor(props) {
@@ -18,7 +19,18 @@ export default class SplashScreen extends Component {
         greetingMsg: 'Greeting, Earthling ..'
       }, () => {
         setTimeout(() => {
-          self.props.navigation.navigate('Login');
+          AsyncStorage.getItem('username')
+          .then(username => {
+            if (username !== null && username !== '') {
+              self.props.navigation.navigate('Drawer');
+            } else {
+              self.props.navigation.navigate('Login');
+            }
+          })
+          .catch(err => {
+            alert('Ops! Error: '+err);
+            self.props.navigation.navigate('Login');
+          });
         }, 1500);
       })
     }, 500);
@@ -48,7 +60,9 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     borderBottomWidth: 1,
-    borderTopWidth: 1
+    borderTopWidth: 1,
+    width: '100%',
+    textAlign: 'center'
   },
   greetingMsg: {
     marginTop: 20,
