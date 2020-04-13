@@ -3,33 +3,35 @@ import { View, StyleSheet, Image, Text } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 export default class CustomSidebarMenu extends Component {
-  constructor() {
-    super();
-    //Setting up the Main Top Large Image of the Custom Sidebar
-    this.proileImage =
-      'https://aboutreact.com/wp-content/uploads/2018/07/sample_img.png';
-    //Array of the sidebar navigation option with icon and screen to navigate
-    //This screens can be any screen defined in Drawer Navigator in App.js
-    //You can find the Icons from here https://material.io/tools/icons/
-    this.items = [
-      {
-        navOptionThumb: 'camera',
-        navOptionName: 'Page 11 Screen',
-        screenToNavigate: 'NavScreen1',
-      },
-      {
-        navOptionThumb: 'image',
-        navOptionName: 'Page 21 Screen',
-        screenToNavigate: 'NavScreen2',
-      },
-    ];
+  constructor(props) {
+    super(props);
+    this.state = {
+      profileImage: 'https://res.cloudinary.com/tuffah-informatics/image/upload/v1566279933/duhagold/test/umar_orpcqa.jpg',
+      items: [
+        {
+          navOptionThumb: 'camera',
+          navOptionName: 'Register',
+          screenToNavigate: 'NavScreen1',
+        },
+        {
+          navOptionThumb: 'image',
+          navOptionName: 'Scan Booking',
+          screenToNavigate: 'NavScreen2',
+        },
+        {
+          navOptionThumb: 'home',
+          navOptionName: 'Logout',
+          screenToNavigate: 'LogoutNavScreen',
+        },
+      ]
+    }
   }
   render() {
     return (
       <View style={styles.sideMenuContainer}>
         {/*Top Large Image */}
         <Image
-          source={{ uri: this.proileImage }}
+          source={{ uri: this.state.profileImage }}
           style={styles.sideMenuProfileIcon}
         />
         {/*Divider between Top Image and Sidebar Option*/}
@@ -43,7 +45,7 @@ export default class CustomSidebarMenu extends Component {
         />
         {/*Setting up Navigation Options from option array using loop*/}
         <View style={{ width: '100%' }}>
-          {this.items.map((item, key) => (
+          {this.state.items.map((item, key) => (
             <View
               style={{
                 flexDirection: 'row',
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   sideMenuProfileIcon: {
-    resizeMode: 'center',
     width: 150,
     height: 150,
     marginTop: 20,

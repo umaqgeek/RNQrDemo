@@ -20,6 +20,13 @@ export default class LoginScreen extends Component {
     this.onLogin = this.onLogin.bind(this);
   }
 
+  componentDidMount() {
+    AsyncStorage.setItem('username', '')
+    .then(() => {
+    })
+    .catch(err => alert('Ops! Error..'+err));
+  }
+
   onHandler = (val, name) => {
     this.setState({
       ...this.state,

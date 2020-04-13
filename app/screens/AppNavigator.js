@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Button, Text, View, Dimensions} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {Icon} from 'react-native-elements';
-import {createAppContainer} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createBottomTabNavigator} from 'react-navigation-tabs';
-import {createSwitchNavigator} from 'react-navigation';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 
 import NavigationDrawerStructure from '../components/NavigationDrawerStructure';
@@ -18,7 +17,7 @@ import RegisterPage2Screen from './tabs/RegisterPage2Screen';
 import Page21Screen from './tabs/Page21Screen';
 import Page22Screen from './tabs/Page22Screen';
 
-export default class AppNavigator extends React.Component {
+export default class AppNavigator extends Component {
   render() {
     return <AppContainer />;
   }
@@ -29,7 +28,7 @@ const RegisterStack = createStackNavigator({
     screen: RegisterPage1Screen,
     navigationOptions: ({ navigation }) => ({
       title: 'Register (1)',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
     })
   },
   RegisterPage2: {
@@ -45,7 +44,7 @@ const Service2Stack = createStackNavigator({
     screen: Page21Screen,
     navigationOptions: ({ navigation }) => ({
       title: 'Page 21 Screen',
-      headerLeft: <NavigationDrawerStructure navigationProps={navigation} />,
+      headerLeft: () => <NavigationDrawerStructure navigationProps={navigation} />,
     })
   },
   Page22Stack: {
@@ -112,7 +111,13 @@ const DrawerNavigator = createDrawerNavigator(
     NavScreen2: {
       screen: Service2Stack,
       navigationOptions: {
-        drawerLabel: 'Stack 2',
+        drawerLabel: 'Scan Booking',
+      },
+    },
+    LogoutNavScreen: {
+      screen: LoginScreen,
+      navigationOptions: {
+        drawerLabel: 'Logout',
       },
     }
   },
